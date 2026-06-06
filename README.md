@@ -18,7 +18,7 @@ mini-anna-notes/
 ├─ manifest.json               # Anna App 配置（工具注册 + 权限）
 ├─ app.json                    # 应用基础元数据
 └─ README.md                   # 项目说明文档
-
+```
 
 ## 如何安装依赖
 
