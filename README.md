@@ -1,32 +1,23 @@
 # Mini Anna Notes
 
-Mini Anna Notes 是一个基于 Anna App 架构的轻量级本地笔记应用。本项目旨在完成面试题目中的最小产品闭环要求（Mini App）。它包含一个纯前端的交互界面，以及一个基于 Python 的本地规则驱动（Rule-based）总结工具，能够自动对输入的笔记内容进行分类和统计。
+Mini Anna Notes 是一个基于 Anna App 架构的轻量级本地笔记应用。本项目旨在完成一个本地运行的可以创建笔记，保存笔记且总结的笔记应用。它包含一个纯前端的交互界面，以及一个基于 Python 的本地规则驱动（Rule-based）总结工具，能够自动对输入的笔记内容进行总结。
 
 ## 目录结构
-
+```text
 mini-anna-notes/
-
-├─ bundle/                      # 前端 UI (用户直接交互的界面)
-
-│   ├─ index.html
-
-│   └─ app.js
-
+├─ bundle/                      # 前端 UI（用户交互层）
+│  ├─ index.html
+│  └─ app.js
+│
 ├─ executas/
-
-│   └─ notes-summarizer/        # 本地 Executa Tool (后台分类处理逻辑)
-
-│       ├─ tool.py
-
-│       ├─ pyproject.toml
-
-│       ├─ uv.lock
-
-├─ manifest.json                # Anna App 核心配置与桥梁
-
-├─ app.json                     # 应用元数据
-
-└─ README.md                    # 项目说明文档
+│  └─ notes-summarizer/        # 本地 Executa Tool（后台逻辑）
+│     ├─ tool.py
+│     ├─ pyproject.toml
+│     └─ uv.lock
+│
+├─ manifest.json               # Anna App 配置（工具注册 + 权限）
+├─ app.json                    # 应用基础元数据
+└─ README.md                   # 项目说明文档
 
 
 ## 如何安装依赖
