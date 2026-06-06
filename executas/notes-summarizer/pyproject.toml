@@ -1,0 +1,8 @@
+[project]
+name = "notes-summarizer"
+version = "1.0.0"
+description = "Local rule-based summarizer tool"
+dependencies = []
+
+[project.scripts]
+tool-dev-notes-summarizer = "tool:main"

@@ -1,0 +1,7 @@
+{
+  "name": "Mini Notes",
+  "tagline": "A minimal notes app with local AI agent summarizer",
+  "description": "A notes application with local AI summarization.",
+  "category": "productivity",
+  "pricing_model": "free"
+}

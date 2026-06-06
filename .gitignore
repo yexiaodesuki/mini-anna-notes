@@ -1,19 +1,29 @@
-# 系统的临时文件
+# 系统文件
 .DS_Store
 Thumbs.db
 
-# 前端依赖与打包缓存
+# 前端依赖
 node_modules/
 dist/
 .parcel-cache/
 
-# Python 编译缓存与虚拟环境
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+
+# 虚拟环境
 .venv/
 venv/
 ENV/
+**/.venv/
 
-# Anna 本地 harness 运行时可能产生的临时日志
+# Python packaging
+*.egg-info/
+
+# 日志 & Anna runtime
 .anna/
 *.log
+
+# IDE
+.vscode/
