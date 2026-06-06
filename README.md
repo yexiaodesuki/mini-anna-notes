@@ -5,16 +5,27 @@ Mini Anna Notes 是一个基于 Anna App 架构的轻量级本地笔记应用。
 ## 目录结构
 
 mini-anna-notes/
+
 ├─ bundle/                      # 前端 UI (用户直接交互的界面)
+
 │   ├─ index.html
+
 │   └─ app.js
+
 ├─ executas/
+
 │   └─ notes-summarizer/        # 本地 Executa Tool (后台分类处理逻辑)
+
 │       ├─ tool.py
+
 │       ├─ pyproject.toml
+
 │       ├─ uv.lock
+
 ├─ manifest.json                # Anna App 核心配置与桥梁
+
 ├─ app.json                     # 应用元数据
+
 └─ README.md                    # 项目说明文档
 
 
