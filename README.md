@@ -22,8 +22,6 @@ mini-anna-notes/
 
 ## 如何安装依赖
 
-### 安装前置依赖
-
 1. 安装 Node.js
 
 在终端输入
@@ -45,29 +43,7 @@ winget install OpenJS.NodeJS.LTS
   npm i -g @anna-ai/cli
 ```
 
-### 安装Executa 依赖
-
-1. 进入工具所在目录
-
-打开终端，进入本地工具的目录：
-```bash
-cd executas/notes-summarizer
-```
-
-2. 安装依赖
-
-本项目推荐使用 uv，你可以直接运行以下命令同步环境：
-```bash
-uv sync
-```
-
-或者执行
-```bash
-pip install -e .
-
-```
-
-3. 启动
+4. 启动
 
 这里要运行
 ```bash
