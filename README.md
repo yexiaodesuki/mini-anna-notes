@@ -22,9 +22,30 @@ mini-anna-notes/
 
 ## 如何安装依赖
 
-本项目的核心界面是纯静态的 HTML/JS，无需构建。主要依赖集中在后端的 Executa (本地工具) 上。从项目结构可以看出，后端工具使用了 uv 进行环境和依赖管理。
+### 安装前置依赖
 
-请按照以下步骤初始化 Python 环境：
+1. 安装 Node.js
+
+在终端输入
+```bash
+winget install OpenJS.NodeJS.LTS
+```
+
+2. 安装 uv
+
+在终端输入
+```bash
+  curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+3. 安装anna-app CLI
+
+在终端输入
+```bash
+  npm i -g @anna-ai/cli
+```
+
+### 安装Executa 依赖
 
 1. 进入工具所在目录
 
