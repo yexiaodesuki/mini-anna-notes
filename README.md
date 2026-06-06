@@ -33,7 +33,7 @@ mini-anna-notes/
 cd executas/notes-summarizer
 ```
 
-2. 安装依赖并激活虚拟环境
+2. 安装依赖
 
 本项目推荐使用 uv，你可以直接运行以下命令同步环境：
 ```bash
@@ -45,6 +45,15 @@ uv sync
 pip install -e .
 
 ```
+
+3. 启动
+
+这里要运行
+```bash
+anna-app dev --no-llm
+```
+不能省略 --no-llm 选项，否则 CLI 会尝试连接远端 LLM 服务，需要 developer PAT（登录态），本地无法直接运行
+
 ## 如何手动测试 Executa JSON-RPC
 
 Anna App 的 Executa 遵循 JSON-RPC 2.0 规范，并通过 标准输入/输出 (stdio) 进行通信。tool.py 被设计为从 stdin 读取请求，将结果输出到 stdout，并将日志输出到 stderr 以防止污染通信流。
