@@ -24,7 +24,7 @@ jobs:
             runner: macos-latest
 
           - platform: darwin-x86_64
-            runner: macos-13
+            runner: macos-15-intel
 
           - platform: windows-x86_64
             runner: windows-latest
