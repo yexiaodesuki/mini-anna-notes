@@ -1,10 +1,12 @@
-# 系统文件
+# OS
 .DS_Store
 Thumbs.db
 
-# 前端依赖
+# Node
 node_modules/
 dist/
+bundle/
+.vite/
 .parcel-cache/
 
 # Python
@@ -12,18 +14,19 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# 虚拟环境
+# virtual env
 .venv/
 venv/
 ENV/
 **/.venv/
 
-# Python packaging
+# packaging
 *.egg-info/
 
-# 日志 & Anna runtime
-.anna/
+# logs
 *.log
+.anna/
 
 # IDE
 .vscode/
+.idea/

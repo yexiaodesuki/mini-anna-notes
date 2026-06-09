@@ -1,2 +1,1 @@
-{"id":"1","method":"sampling/createMessage","params":{"messages":[{"role":"user","content":{"type":"text","text":"请对以下笔记进行结构化总结：笔记1\n笔记2\n笔记3"}}]}}
-{"id":"1","result":{"role":"assistant","content":{"type":"text","text":"结构化总结：1. 笔记1 2. 笔记2 3. 笔记3"},"model":"mock-model","stopReason":"endTurn"}}
+{"ns":"sampling","method":"createMessage","result":{"role":"assistant","content":{"type":"text","text":"mock summary response from fixture"},"model":"mock-model","stopReason":"endTurn"}}

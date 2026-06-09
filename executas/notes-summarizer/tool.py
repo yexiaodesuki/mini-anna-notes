@@ -3,9 +3,11 @@ import sys
 import json
 import uuid
 import time
+import threading
 
 pending_sampling = {}   # rid -> invoke_id
 pending_results = {}    # invoke_id -> result
+write_lock = threading.Lock()
 DEBUG_PRETTY = "--pretty" in sys.argv
 def log_error(msg):
     """安全地将日志输出到 stderr，绝不污染 stdout 的 JSON-RPC 通信流"""
@@ -110,14 +112,19 @@ def handle_shutdown():
         "success": True
     }
 
+def write_json(msg):
+    with write_lock:
+        sys.stdout.write(json.dumps(msg) + "\n")
+        sys.stdout.flush()
+
 def send_sampling(invoke_id, notes):
-    rid = "1"
+    rid = str(uuid.uuid4())
 
     pending_sampling[rid] = invoke_id
 
     prompt = "请对以下笔记进行结构化总结：\n" + "\n".join(notes)
 
-    sys.stdout.write(json.dumps({
+    write_json({
         "jsonrpc": "2.0",
         "id": rid,
         "method": "sampling/createMessage",
@@ -135,19 +142,28 @@ def send_sampling(invoke_id, notes):
                 "executa_invoke_id": invoke_id
             }
         }
-    }) + "\n")
+    })
     log_error(f"SEND sampling rid={rid} invoke={invoke_id}")
-    sys.stdout.flush()
+
+def run_invoke(rpc_id, params):
+    response = {
+        "jsonrpc": "2.0",
+        "id": rpc_id,
+        "result": handle_invoke(params)
+    }
+    write_json(response)
 
 def handle_sampling_response(msg):
     if "error" in msg:
         log_error(f"SAMPLING ERROR: {msg['error']}")
         return
     rid = msg.get("id")
-    log_error(f"RECV sampling msg={msg}")
-    log_error(f"UNKNOWN sampling rid={rid} msg={msg}")
+    log_error(f"RECV sampling rid={rid} OK")
 
-    invoke_id = pending_sampling.pop(rid)
+    invoke_id = pending_sampling.pop(rid, None)
+    if not invoke_id:
+        log_error(f"unknown rid={rid}")
+        return
     log_error(f"rid={rid} pending={list(pending_sampling.keys())}")
     result = msg.get("result") or {}
 
@@ -205,15 +221,19 @@ def main():
             response["result"] = handle_describe()
 
         elif method == "invoke":
-            response["result"] = handle_invoke(params)
+            threading.Thread(
+                target=run_invoke,
+                args=(rpc_id, params),
+                daemon=True
+            ).start()
+            continue
 
         elif method == "health":
             response["result"] = handle_health()
 
         elif method == "shutdown":
             response["result"] = handle_shutdown()
-            sys.stdout.write(json.dumps(response) + "\n")
-            sys.stdout.flush()
+            write_json(response)
             break
 
         else:
@@ -222,8 +242,7 @@ def main():
                 "message": f"Method not found: {method}"
             }
 
-        sys.stdout.write(json.dumps(response) + "\n")
-        sys.stdout.flush()
+        write_json(response)
 
 if __name__ == "__main__":
     main()
