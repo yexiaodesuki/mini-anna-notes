@@ -22,10 +22,38 @@ ENV/
 
 # packaging
 *.egg-info/
+*.whl
+pip-wheel-metadata/
 
 # logs
 *.log
 .anna/
+
+# Build / release artifacts
+release/
+dist/executa-binary/
+dist/pyinstaller-*
+build/
+
+# PyInstaller / spec / single-file outputs
+*.spec
+*.exe
+*.dll
+*.dylib
+*.so
+
+# Python caches / test / packaging
+.pytest_cache/
+.mypy_cache/
+.coverage
+coverage.xml
+htmlcov/
+.cache/
+.tox/
+
+# Virtualenv / env files
+.env
+.env.*
 
 # IDE
 .vscode/
