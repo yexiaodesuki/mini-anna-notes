@@ -1,0 +1,103 @@
+name: Build and Release Executa Binary
+
+on:
+  workflow_dispatch:
+
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build ${{ matrix.platform }}
+
+    runs-on: ${{ matrix.runner }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: darwin-arm64
+            runner: macos-latest
+
+          - platform: darwin-x86_64
+            runner: macos-13
+
+          - platform: windows-x86_64
+            runner: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install build dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller
+
+      - name: Build Executa Binary
+        run: |
+          python scripts/build_executa_binary.py --json > build_output.json
+
+      - name: Show build output
+        shell: python
+        run: |
+          import json
+
+          with open("build_output.json","r",encoding="utf-8") as f:
+              info = json.load(f)
+
+          print(json.dumps(info, indent=2))
+
+      - name: Smoke Test (Windows)
+        if: matrix.platform == 'windows-x86_64'
+        run: |
+          python scripts/smoke_test_describe.py dist/executa-binary/archive-root/windows-x86_64/bin/tool-dev-notes-summarizer.exe
+
+      - name: Smoke Test (macOS)
+        if: matrix.platform != 'windows-x86_64'
+        run: |
+          python scripts/smoke_test_describe.py dist/executa-binary/archive-root/${{ matrix.platform }}/bin/tool-dev-notes-summarizer
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ matrix.platform }}
+          path: release/*
+          if-no-files-found: error
+
+  release:
+    name: Publish GitHub Release
+
+    needs: build
+
+    if: startsWith(github.ref, 'refs/tags/')
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Show Artifacts
+        run: |
+          find artifacts -type f
+
+      - name: Publish Release Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            artifacts/**/*.zip
+            artifacts/**/*.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
