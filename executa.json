@@ -1,0 +1,5 @@
+{
+  "type": "python",
+  "tool_id": "tool-dev-notes-summarizer",
+  "command": ["python", "executas/notes-summarizer/tool.py"]
+}

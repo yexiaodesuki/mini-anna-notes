@@ -1,0 +1,17 @@
+{
+  "name": "mini-anna-notes",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+
+    "anna:ui": "anna-app dev --no-llm",
+
+    "anna:executa": "anna-app executa dev --mock-sampling fixtures/mock-sampling.jsonl",
+
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "vite": "^7.0.0"
+  }
+}
