@@ -1009,8 +1009,19 @@ release/*.zip / *.tar.gz
 ```
 
 ---
+### 7. Executa Binary Smoke Test
+构建完成后，通过 smoke test 验证 binary 是否符合 Executa RPC 规范(再次之前要把release中的压缩包下载到本地解压，获得tool-dev-notes-summarizer.exe)
+```bash
+python scripts/smoke_test_describe.py bin\tool-dev-notes-summarizer.exe
+```
+成功输出示例:
+```text
+[smoke_test] ✓ describe RPC successful
+[smoke_test] manifest name: tool-dev-notes-summarizer
+[smoke_test] manifest version: 1.0.0
+```
 
-### 7. 结论
+### 8. 结论
 
 该脚本实现了完整的 Executa 工具发布链路：
 
